@@ -2,8 +2,9 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="description" content="آموزشگاه موسیقی باورستان در تهران — آموزش پیانو، گیتار، ویولن، آواز و موسیقی کودک با برنامه‌ای ساخت‌یافته." />
+  <meta name="theme-color" content="#8b3a2a" />
   <title>آموزشگاه موسیقی باورستان</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,14 +26,16 @@
 
       <nav class="nav-links" id="nav-links" aria-label="منوی اصلی">
         <a href="#courses">دوره‌ها</a>
+        <a href="#path">مسیر یادگیری</a>
         <a href="#teachers">اساتید</a>
         <a href="#about">درباره</a>
+        <a href="#faq">پرسش‌ها</a>
         <a href="#contact">تماس</a>
       </nav>
 
       <div class="nav-actions">
-        <a class="btn btn-ghost" href="#contact">مشاوره</a>
-        <a class="btn btn-primary" href="#contact">ثبت‌نام</a>
+        <a class="btn btn-ghost hide-sm" href="tel:+982188940824">تماس</a>
+        <a class="btn btn-primary hide-sm" href="#contact">ثبت‌نام</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="باز کردن منو">
           <span></span>
           <span></span>
@@ -45,10 +48,10 @@
     <section id="hero" class="hero">
       <div class="hero-media">
         <img
-          src="https://images.unsplash.com/photo-1518544897598-d3c0040f1089?auto=format&fit=crop&w=2000&q=80"
-          alt="پیانوی گراند در اتاق تمرین روشن آموزشگاه"
-          width="2000"
-          height="1333"
+          src="images/hero-piano.png"
+          alt="پیانوی گراند در اتاق تمرین روشن آموزشگاه باورستان"
+          width="1600"
+          height="900"
           fetchpriority="high"
         />
       </div>
@@ -66,11 +69,31 @@
       </div>
     </section>
 
+    <section class="trust shell" aria-label="نکات کلیدی">
+      <div class="trust-item">
+        <strong>۱۲+ سال</strong>
+        <span>سابقه آموزش تخصصی</span>
+      </div>
+      <div class="trust-item">
+        <strong>۶ رشته</strong>
+        <span>از پیانو تا موسیقی کودک</span>
+      </div>
+      <div class="trust-item">
+        <strong>جلسه معارفه</strong>
+        <span>اولین ملاقات رایگان</span>
+      </div>
+      <div class="trust-item">
+        <strong>تهران مرکز</strong>
+        <span>نزدیک ولیعصر و کریمخان</span>
+      </div>
+    </section>
+
     <section class="notice shell" aria-label="اطلاعیه ترم">
       <p>
         <span class="notice-label">ترم تابستان</span>
         ثبت‌نام از ۱۵ تیر فعال است. ظرفیت کلاس‌های خصوصی محدود است.
       </p>
+      <a class="notice-link" href="#contact">همین حالا ثبت‌نام کنید</a>
     </section>
 
     <section id="courses" class="section shell">
@@ -80,139 +103,188 @@
       </header>
 
       <div class="curriculum" role="list">
-        <article class="curriculum-row reveal" role="listitem">
+        <article class="curriculum-row" role="listitem">
           <div class="curriculum-main">
+            <p class="course-kicker">خصوصی / گروهی</p>
             <h3>پیانو کلاسیک</h3>
-            <p>گام‌به‌گام با تمرکز بر ریتم، سلفژ و رپرتوار کلاسیک و پاپ.</p>
+            <p>گام‌به‌گام با تمرکز بر ریتم، سلفژ و رپرتوار کلاسیک و پاپ؛ مناسب کودکان و بزرگسالان.</p>
           </div>
           <dl class="curriculum-meta">
             <div><dt>مدت</dt><dd>۱۲ جلسه</dd></div>
             <div><dt>سطح</dt><dd>مبتدی تا پیشرفته</dd></div>
+            <div><dt>سن</dt><dd>۷ سال به بالا</dd></div>
           </dl>
         </article>
 
-        <article class="curriculum-row reveal" role="listitem">
+        <article class="curriculum-row" role="listitem">
           <div class="curriculum-main">
-            <h3>گیتار کلاسیک و پاپ</h3>
-            <p>از اولین آکورد تا اجرای قطعات مورد علاقه، با کار روی ریتم و تکنیک.</p>
+            <p class="course-kicker">کلاسیک و پاپ</p>
+            <h3>گیتار</h3>
+            <p>از اولین آکورد تا اجرای قطعات مورد علاقه، با کار روی ریتم، تکنیک و اجرای گروهی.</p>
           </div>
           <dl class="curriculum-meta">
             <div><dt>مدت</dt><dd>۱۰ جلسه</dd></div>
             <div><dt>سطح</dt><dd>مبتدی / متوسط</dd></div>
+            <div><dt>سن</dt><dd>۱۰ سال به بالا</dd></div>
           </dl>
         </article>
 
-        <article class="curriculum-row reveal" role="listitem">
+        <article class="curriculum-row" role="listitem">
           <div class="curriculum-main">
+            <p class="course-kicker">استاندارد بین‌المللی</p>
             <h3>ویولن کلاسیک</h3>
-            <p>دست‌گیری صحیح، آرشه‌کشی، اینتونیشن و رپرتوار استاندارد.</p>
+            <p>دست‌گیری صحیح، آرشه‌کشی، اینتونیشن و رپرتوار استاندارد برای مسیر جدی نوازندگی.</p>
           </div>
           <dl class="curriculum-meta">
             <div><dt>مدت</dt><dd>۱۲ جلسه</dd></div>
             <div><dt>سطح</dt><dd>مبتدی تا پیشرفته</dd></div>
+            <div><dt>سن</dt><dd>۶ سال به بالا</dd></div>
           </dl>
         </article>
 
-        <article class="curriculum-row reveal" role="listitem">
+        <article class="curriculum-row" role="listitem">
           <div class="curriculum-main">
+            <p class="course-kicker">با همراهی پیانو</p>
             <h3>آواز پاپ و کلاسیک</h3>
-            <p>تنفس، وسعت صدا، بیان احساسی و اجرا با همراهی پیانو.</p>
+            <p>تنفس، وسعت صدا، بیان احساسی و اجرای قطعات انتخابی روی صحنه یا در استودیو.</p>
           </div>
           <dl class="curriculum-meta">
             <div><dt>مدت</dt><dd>۸ جلسه</dd></div>
             <div><dt>سطح</dt><dd>گروهی / خصوصی</dd></div>
+            <div><dt>سن</dt><dd>۱۲ سال به بالا</dd></div>
           </dl>
         </article>
 
-        <article class="curriculum-row reveal" role="listitem">
+        <article class="curriculum-row" role="listitem">
           <div class="curriculum-main">
+            <p class="course-kicker">مکمل همه سازها</p>
             <h3>تئوری و سلفژ</h3>
-            <p>نُت‌خوانی، ریتم‌خوانی و پایه‌های هارمونی برای همه سازها.</p>
+            <p>نُت‌خوانی، ریتم‌خوانی و پایه‌های هارمونی برای فهم عمیق‌تر موسیقی.</p>
           </div>
           <dl class="curriculum-meta">
             <div><dt>مدت</dt><dd>۶ جلسه</dd></div>
             <div><dt>سطح</dt><dd>مکمل ساز</dd></div>
+            <div><dt>سن</dt><dd>همه سطوح</dd></div>
           </dl>
         </article>
 
-        <article class="curriculum-row reveal" role="listitem">
+        <article class="curriculum-row" role="listitem">
           <div class="curriculum-main">
+            <p class="course-kicker">۴ تا ۸ سال</p>
             <h3>موسیقی کودک (اورف)</h3>
-            <p>ریتم، بازی و حرکت برای کودکان ۴ تا ۸ سال در محیطی آرام و هدایت‌شده.</p>
+            <p>ریتم، بازی و حرکت در محیطی آرام و هدایت‌شده برای ورود درست کودک به موسیقی.</p>
           </div>
           <dl class="curriculum-meta">
             <div><dt>مدت</dt><dd>۸ جلسه</dd></div>
             <div><dt>سطح</dt><dd>گروهی</dd></div>
+            <div><dt>سن</dt><dd>۴ تا ۸ سال</dd></div>
           </dl>
         </article>
       </div>
     </section>
 
-    <section id="teachers" class="section section-tint">
+    <section id="path" class="section section-tint">
       <div class="shell">
         <header class="section-head">
-          <h2>اساتید</h2>
-          <p>مدرسین با تجربه تدریس، اجرا و آماده‌سازی برای آزمون و صحنه.</p>
+          <h2>مسیر یادگیری در باورستان</h2>
+          <p>از اولین تماس تا اجرای روی صحنه، مراحل روشن و قابل پیگیری است.</p>
         </header>
-
-        <ul class="faculty">
-          <li class="faculty-item reveal">
-            <div class="faculty-identity">
-              <span class="faculty-initial" aria-hidden="true">م</span>
-              <div>
-                <h3>مهران رضایی</h3>
-                <p class="faculty-role">پیانو و تئوری موسیقی</p>
-              </div>
+        <ol class="path-list">
+          <li>
+            <span class="path-num">۱</span>
+            <div>
+              <h3>مشاوره و جلسه معارفه</h3>
+              <p>سطح، علاقه و زمان مناسب شما را مشخص می‌کنیم.</p>
             </div>
-            <p class="faculty-bio">
-              فارغ‌التحصیل کارشناسی موسیقی با بیش از ۱۰ سال تدریس پیانو کلاسیک و آماده‌سازی آزمون‌های ABRSM.
-            </p>
           </li>
-          <li class="faculty-item reveal">
-            <div class="faculty-identity">
-              <span class="faculty-initial" aria-hidden="true">س</span>
-              <div>
-                <h3>سارا احمدی</h3>
-                <p class="faculty-role">گیتار و آواز پاپ</p>
-              </div>
+          <li>
+            <span class="path-num">۲</span>
+            <div>
+              <h3>برنامه شخصی‌سازی‌شده</h3>
+              <p>استاد، مدت جلسات و اهداف ترم را با هم تنظیم می‌کنیم.</p>
             </div>
-            <p class="faculty-bio">
-              نوازنده و خواننده پاپ با تمرکز بر اجرای صحنه‌ای، ریتم‌خوانی و اجرای قطعات روز.
-            </p>
           </li>
-          <li class="faculty-item reveal">
-            <div class="faculty-identity">
-              <span class="faculty-initial" aria-hidden="true">ی</span>
-              <div>
-                <h3>یگانه موسوی</h3>
-                <p class="faculty-role">ویولن و موسیقی کودک</p>
-              </div>
+          <li>
+            <span class="path-num">۳</span>
+            <div>
+              <h3>تمرین منظم و بازخورد</h3>
+              <p>هر جلسه با تکلیف روشن و پیگیری پیشرفت همراه است.</p>
             </div>
-            <p class="faculty-bio">
-              متخصص متد اورف؛ طراحی کلاس‌هایی که کودک را با نظم و لذت به دنیای موسیقی نزدیک می‌کند.
-            </p>
           </li>
-        </ul>
+          <li>
+            <span class="path-num">۴</span>
+            <div>
+              <h3>اجرا و ارزیابی</h3>
+              <p>کنسرت هنرجویی، ضبط اجرا یا آمادگی آزمون‌های معتبر.</p>
+            </div>
+          </li>
+        </ol>
       </div>
+    </section>
+
+    <section id="teachers" class="section shell">
+      <header class="section-head">
+        <h2>اساتید</h2>
+        <p>مدرسین با تجربه تدریس، اجرا و آماده‌سازی برای آزمون و صحنه.</p>
+      </header>
+
+      <ul class="faculty">
+        <li class="faculty-item">
+          <div class="faculty-identity">
+            <span class="faculty-initial" aria-hidden="true">م</span>
+            <div>
+              <h3>مهران رضایی</h3>
+              <p class="faculty-role">پیانو و تئوری موسیقی</p>
+            </div>
+          </div>
+          <p class="faculty-bio">
+            فارغ‌التحصیل کارشناسی موسیقی با بیش از ۱۰ سال تدریس پیانو کلاسیک و آماده‌سازی آزمون‌های ABRSM.
+          </p>
+        </li>
+        <li class="faculty-item">
+          <div class="faculty-identity">
+            <span class="faculty-initial" aria-hidden="true">س</span>
+            <div>
+              <h3>سارا احمدی</h3>
+              <p class="faculty-role">گیتار و آواز پاپ</p>
+            </div>
+          </div>
+          <p class="faculty-bio">
+            نوازنده و خواننده پاپ با تمرکز بر اجرای صحنه‌ای، ریتم‌خوانی و اجرای قطعات روز.
+          </p>
+        </li>
+        <li class="faculty-item">
+          <div class="faculty-identity">
+            <span class="faculty-initial" aria-hidden="true">ی</span>
+            <div>
+              <h3>یگانه موسوی</h3>
+              <p class="faculty-role">ویولن و موسیقی کودک</p>
+            </div>
+          </div>
+          <p class="faculty-bio">
+            متخصص متد اورف؛ طراحی کلاس‌هایی که کودک را با نظم و لذت به دنیای موسیقی نزدیک می‌کند.
+          </p>
+        </li>
+      </ul>
     </section>
 
     <section class="atmosphere shell" aria-label="حال‌وهوای آموزشگاه">
       <figure class="atmosphere-shot">
         <img
-          src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=1400&q=80"
+          src="images/practice-hands.png"
           alt="دست‌ها روی کلاویه‌های پیانو هنگام تمرین"
-          width="1400"
-          height="933"
+          width="1200"
+          height="900"
           loading="lazy"
         />
         <figcaption>تمرین متمرکز در کلاس خصوصی</figcaption>
       </figure>
       <figure class="atmosphere-shot">
         <img
-          src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=1400&q=80"
+          src="images/sheet-music.png"
           alt="پارتیتور موسیقی روی پایه نت"
-          width="1400"
-          height="933"
+          width="1200"
+          height="900"
           loading="lazy"
         />
         <figcaption>برنامه درسی دقیق و نُت‌محور</figcaption>
@@ -222,10 +294,10 @@
     <section id="about" class="about">
       <div class="about-media">
         <img
-          src="https://images.unsplash.com/photo-1552422535-c45813c61732?auto=format&fit=crop&w=1600&q=80"
+          src="images/lesson-piano.png"
           alt="هنرجو پشت پیانو در فضای آرام کلاس"
-          width="1600"
-          height="1067"
+          width="1200"
+          height="900"
           loading="lazy"
         />
       </div>
@@ -244,66 +316,97 @@
       </div>
     </section>
 
-    <section id="contact" class="section shell">
+    <section id="faq" class="section shell">
       <header class="section-head">
-        <h2>ثبت‌نام و مشاوره</h2>
-        <p>فرم را تکمیل کنید تا مناسب‌ترین دوره را بر اساس سن، سطح و علاقه پیشنهاد دهیم.</p>
+        <h2>پرسش‌های رایج</h2>
+        <p>پاسخ کوتاه به سوال‌هایی که والدین و هنرجویان معمولاً می‌پرسند.</p>
       </header>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>آیا از صفر می‌توانم شروع کنم؟</summary>
+          <p>بله. بیشتر هنرجویان ما مبتدی هستند و برنامه از پایه طراحی شده است.</p>
+        </details>
+        <details class="faq-item">
+          <summary>جلسه معارفه چقدر طول می‌کشد؟</summary>
+          <p>حدود ۲۰ تا ۳۰ دقیقه؛ برای آشنایی با فضا، استاد و سطح تقریبی شما.</p>
+        </details>
+        <details class="faq-item">
+          <summary>برای کودک چه سنی مناسب است؟</summary>
+          <p>موسیقی کودک از ۴ سال؛ سازهایی مثل پیانو و ویولن معمولاً از ۶–۷ سال.</p>
+        </details>
+        <details class="faq-item">
+          <summary>آیا می‌توانم زمان کلاس را جابه‌جا کنم؟</summary>
+          <p>تا حد امکان بله؛ برنامه با توجه به مدرسه، دانشگاه یا شغل شما تنظیم می‌شود.</p>
+        </details>
+      </div>
+    </section>
 
-      <div class="contact-layout">
-        <form class="contact-form" id="contact-form" novalidate>
-          <div class="form-grid">
-            <div class="field">
-              <label for="name">نام و نام خانوادگی</label>
-              <input id="name" name="name" type="text" autocomplete="name" required placeholder="مثلاً علی محمدی" />
-            </div>
-            <div class="field">
-              <label for="phone">شماره تماس</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="۰۹۱۲..." inputmode="tel" />
-            </div>
-            <div class="field">
-              <label for="instrument">ساز مورد نظر</label>
-              <select id="instrument" name="instrument" required>
-                <option value="">انتخاب کنید</option>
-                <option>پیانو</option>
-                <option>گیتار</option>
-                <option>ویولن</option>
-                <option>آواز</option>
-                <option>موسیقی کودک</option>
-                <option>سایر</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="level">سطح تقریبی</label>
-              <select id="level" name="level">
-                <option>مبتدی (از صفر)</option>
-                <option>متوسط</option>
-                <option>پیشرفته</option>
-              </select>
-            </div>
-            <div class="field field-full">
-              <label for="message">توضیحات (اختیاری)</label>
-              <textarea id="message" name="message" rows="4" placeholder="مثلاً ترجیح می‌دهم آخر هفته‌ها کلاس داشته باشم..."></textarea>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary btn-lg form-submit">ارسال درخواست تماس</button>
-          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-        </form>
+    <section id="contact" class="section section-tint">
+      <div class="shell">
+        <header class="section-head">
+          <h2>ثبت‌نام و مشاوره</h2>
+          <p>فرم را تکمیل کنید تا مناسب‌ترین دوره را بر اساس سن، سطح و علاقه پیشنهاد دهیم.</p>
+        </header>
 
-        <aside class="contact-aside">
-          <h3>اطلاعات تماس</h3>
-          <address>
-            <p>
-              تهران، خیابان ولیعصر، خیابان کریمخان، خیابان ویلا، خیابان اراک، پلاک ۵۴، واحد ۵
+        <div class="contact-layout">
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="name">نام و نام خانوادگی</label>
+                <input id="name" name="name" type="text" autocomplete="name" required placeholder="مثلاً علی محمدی" />
+              </div>
+              <div class="field">
+                <label for="phone">شماره تماس</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="۰۹۱۲..." inputmode="tel" />
+              </div>
+              <div class="field">
+                <label for="instrument">ساز مورد نظر</label>
+                <select id="instrument" name="instrument" required>
+                  <option value="">انتخاب کنید</option>
+                  <option>پیانو</option>
+                  <option>گیتار</option>
+                  <option>ویولن</option>
+                  <option>آواز</option>
+                  <option>موسیقی کودک</option>
+                  <option>سایر</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="level">سطح تقریبی</label>
+                <select id="level" name="level">
+                  <option>مبتدی (از صفر)</option>
+                  <option>متوسط</option>
+                  <option>پیشرفته</option>
+                </select>
+              </div>
+              <div class="field field-full">
+                <label for="message">توضیحات (اختیاری)</label>
+                <textarea id="message" name="message" rows="4" placeholder="مثلاً ترجیح می‌دهم آخر هفته‌ها کلاس داشته باشم..."></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg form-submit">ارسال درخواست تماس</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <aside class="contact-aside">
+            <h3>اطلاعات تماس</h3>
+            <address>
+              <p>
+                تهران، خیابان ولیعصر، خیابان کریمخان، خیابان ویلا، خیابان اراک، پلاک ۵۴، واحد ۵
+              </p>
+              <p><a href="tel:+982188940824">۰۲۱ ۸۸۹۴ ۰۸۲۴</a></p>
+              <p>همه‌روزه به‌جز جمعه، ۱۰ تا ۲۰</p>
+              <p><a href="mailto:info@example.com">info@example.com</a></p>
+            </address>
+            <div class="contact-actions">
+              <a class="btn btn-primary" href="tel:+982188940824">تماس تلفنی</a>
+              <a class="btn btn-ghost" href="https://maps.google.com/?q=تهران+خیابان+اراک+پلاک+۵۴" target="_blank" rel="noopener">مسیریابی</a>
+            </div>
+            <p class="contact-note">
+              این فرم فعلاً نمایشی است. پس از اتصال به هاست می‌توان ارسال واقعی را فعال کرد.
             </p>
-            <p><a href="tel:+982188940824">۰۲۱ ۸۸۹۴ ۰۸۲۴</a></p>
-            <p>همه‌روزه به‌جز جمعه، ۱۰ تا ۲۰</p>
-            <p><a href="mailto:info@example.com">info@example.com</a></p>
-          </address>
-          <p class="contact-note">
-            این فرم فعلاً نمایشی است. پس از اتصال به هاست می‌توان ارسال واقعی را فعال کرد.
-          </p>
-        </aside>
+          </aside>
+        </div>
       </div>
     </section>
   </main>
@@ -318,6 +421,11 @@
       </nav>
     </div>
   </footer>
+
+  <div class="mobile-bar" aria-label="دسترسی سریع موبایل">
+    <a class="btn btn-ghost" href="tel:+982188940824">تماس</a>
+    <a class="btn btn-primary" href="#contact">ثبت‌نام</a>
+  </div>
 
   <script src="script.js"></script>
 </body>
