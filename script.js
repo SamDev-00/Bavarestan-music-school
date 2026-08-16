@@ -2,14 +2,15 @@
   const header = document.querySelector(".site-header");
   const toggle = document.querySelector(".nav-toggle");
   const navLinks = document.querySelector("#nav-links");
-  const form = document.querySelector("#contact-form");
+  const form = document.querySelector("#register-form");
   const status = document.querySelector("#form-status");
+  const teacherSelect = document.querySelector("#teacher");
+  const registerButtons = document.querySelectorAll(".register-btn");
 
   const onScroll = () => {
     if (!header) return;
     header.classList.toggle("is-scrolled", window.scrollY > 12);
   };
-
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -19,15 +20,39 @@
       navLinks.classList.toggle("is-open", open);
       toggle.setAttribute("aria-label", open ? "بستن منو" : "باز کردن منو");
     };
-
     toggle.addEventListener("click", () => {
-      const open = toggle.getAttribute("aria-expanded") !== "true";
-      setOpen(open);
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
     });
-
     navLinks.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => setOpen(false));
     });
+  }
+
+  // Pick an instructor -> preselect in the registration form and scroll to it
+  const highlightSelected = (value) => {
+    registerButtons.forEach((btn) => {
+      btn.classList.toggle("is-selected", btn.dataset.teacher === value);
+    });
+  };
+
+  registerButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const value = btn.dataset.teacher;
+      if (teacherSelect) {
+        teacherSelect.value = value;
+        highlightSelected(value);
+      }
+      const target = document.querySelector("#register");
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      const nameField = document.querySelector("#name");
+      if (nameField) {
+        window.setTimeout(() => nameField.focus({ preventScroll: true }), 500);
+      }
+    });
+  });
+
+  if (teacherSelect) {
+    teacherSelect.addEventListener("change", () => highlightSelected(teacherSelect.value));
   }
 
   if (form && status) {
@@ -35,30 +60,17 @@
       event.preventDefault();
       if (!form.checkValidity()) {
         form.reportValidity();
-        status.textContent = "لطفاً فیلدهای ضروری را کامل کنید.";
+        status.textContent = "لطفاً استاد، نام و شماره تماس را کامل کنید.";
         return;
       }
-      status.textContent = "درخواست شما ثبت شد. به‌زودی با شما تماس می‌گیریم.";
+      const selected = teacherSelect && teacherSelect.selectedOptions.length
+        ? teacherSelect.selectedOptions[0].textContent.trim()
+        : "";
+      status.textContent = selected
+        ? `درخواست ثبت‌نام شما برای «${selected}» ثبت شد. به‌زودی تماس می‌گیریم.`
+        : "درخواست شما ثبت شد. به‌زودی با شما تماس می‌گیریم.";
       form.reset();
-    });
-  }
-
-  const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (!motionQuery.matches && "IntersectionObserver" in window) {
-    const items = document.querySelectorAll(".curriculum-row, .faculty-item");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-in");
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
-    );
-    items.forEach((item, index) => {
-      item.style.animationDelay = `${index % 3 * 0.08}s`;
-      observer.observe(item);
+      highlightSelected("");
     });
   }
 })();
