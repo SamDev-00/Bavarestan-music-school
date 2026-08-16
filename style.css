@@ -146,7 +146,7 @@ p { text-wrap: pretty; }
   width: 160%; height: 160%;
   max-width: none;
   object-fit: contain;
-  transform: translateY(22%);
+  transform: translateY(15%);
 }
 .brand-text { display: flex; flex-direction: column; gap: 0.05rem; line-height: 1.2; }
 .brand-name { font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em; }
