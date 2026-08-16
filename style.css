@@ -143,8 +143,12 @@ p { text-wrap: pretty; }
   overflow: hidden;
 }
 .brand-badge img {
-  width: auto; height: 74%;
+  width: auto;
+  height: 2.35rem;
+  max-width: 2.5rem;
+  max-height: 2.5rem;
   object-fit: contain;
+  object-position: center;
 }
 .brand-text { display: flex; flex-direction: column; gap: 0.05rem; line-height: 1.2; }
 .brand-name { font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em; }
