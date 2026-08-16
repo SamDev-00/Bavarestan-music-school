@@ -9,7 +9,8 @@
   --line: oklch(0.9 0.012 320);
   --hero-ink: oklch(0.985 0.005 300);
   --shadow: 0 1.5rem 3rem oklch(0.22 0.025 33 / 0.08);
-  --radius: 0.5rem;
+  --radius: 0.65rem;
+  --radius-lg: 0.9rem;
   --shell: min(1120px, calc(100% - 2.5rem));
   --font-display: "Markazi Text", "Vazirmatn", serif;
   --font-body: "Vazirmatn", Tahoma, sans-serif;
@@ -133,7 +134,7 @@ p { text-wrap: pretty; }
 }
 .brand { display: flex; align-items: center; gap: 0.7rem; min-width: 0; }
 .brand-badge {
-  width: 2.5rem; height: 2.5rem;
+  width: 3.25rem; height: 3.25rem;
   flex-shrink: 0;
   display: grid;
   place-items: center;
@@ -141,7 +142,7 @@ p { text-wrap: pretty; }
   background: radial-gradient(circle at 35% 30%, oklch(0.26 0.07 322), oklch(0.1 0.02 300));
   overflow: hidden;
 }
-.brand-badge img { width: 86%; height: 86%; object-fit: contain; }
+.brand-badge img { width: 100%; height: 100%; object-fit: contain; object-position: center; margin: auto; }
 .brand-text { display: flex; flex-direction: column; gap: 0.05rem; line-height: 1.2; }
 .brand-name { font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em; }
 .brand-sub { font-size: 0.7rem; color: var(--muted); font-weight: 500; }
@@ -275,6 +276,8 @@ textarea:focus-visible,
   background: var(--line);
   border: 1px solid var(--line);
   margin-top: -1px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
 .trust-item { background: var(--bg); padding: 1.15rem 1rem; display: grid; gap: 0.2rem; }
 .trust-item strong { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--primary); }
@@ -298,6 +301,8 @@ textarea:focus-visible,
   background: var(--bg);
   display: flex;
   flex-direction: column;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
   transition: box-shadow 0.3s var(--ease-out), transform 0.3s var(--ease-out);
 }
 .group:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
@@ -342,7 +347,7 @@ textarea:focus-visible,
   gap: clamp(1.25rem, 3.5vw, 2.5rem);
   align-items: start;
 }
-.register-form { background: var(--bg); border: 1px solid var(--line); padding: clamp(1.15rem, 2.5vw, 1.6rem); }
+.register-form { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(1.15rem, 2.5vw, 1.6rem); }
 .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; margin-bottom: 1rem; }
 .field { display: grid; gap: 0.3rem; }
 .field-full { grid-column: 1 / -1; }
@@ -367,7 +372,7 @@ textarea { resize: vertical; min-height: 6rem; }
 .form-submit { width: 100%; }
 .form-status { min-height: 1.4em; margin-top: 0.7rem; font-size: 0.9rem; color: var(--primary); font-weight: 600; }
 
-.register-aside { background: var(--bg); border: 1px solid var(--line); padding: 1.25rem; }
+.register-aside { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.25rem; }
 .register-aside h3 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.85rem; }
 .steps { padding-inline-start: 1.15rem; display: grid; gap: 0.55rem; color: var(--muted); font-size: 0.92rem; }
 .aside-contact { margin-top: 1.25rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
@@ -379,6 +384,7 @@ textarea { resize: vertical; min-height: 6rem; }
 .empty-state {
   border: 1px dashed var(--line);
   background: var(--surface);
+  border-radius: var(--radius-lg);
   padding: clamp(2.5rem, 6vw, 4rem) 1.5rem;
   text-align: center;
   display: grid;
@@ -396,11 +402,12 @@ textarea { resize: vertical; min-height: 6rem; }
   gap: clamp(1.25rem, 3.5vw, 2rem);
   align-items: stretch;
 }
-.map-frame { border: 1px solid var(--line); overflow: hidden; min-height: 20rem; background: var(--surface); }
+.map-frame { border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; min-height: 20rem; background: var(--surface); }
 .map-frame iframe { width: 100%; height: 100%; min-height: 20rem; border: 0; display: block; }
 .location-aside {
   background: var(--bg);
   border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -418,6 +425,7 @@ textarea { resize: vertical; min-height: 6rem; }
 .contact-card {
   border: 1px solid var(--line);
   background: var(--bg);
+  border-radius: var(--radius-lg);
   padding: 1.35rem 1.25rem;
   display: grid;
   gap: 0.35rem;
