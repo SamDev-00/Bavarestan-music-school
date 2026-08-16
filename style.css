@@ -431,7 +431,7 @@ textarea { resize: vertical; min-height: 6rem; }
 }
 .footer-inner { display: flex; justify-content: space-between; gap: 1.25rem; flex-wrap: wrap; align-items: center; font-size: 0.85rem; }
 .footer-brand { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-.footer-logo { width: 11rem; aspect-ratio: 682 / 300; height: auto; object-fit: cover; object-position: center 49%; }
+.footer-logo { width: auto; height: 4.75rem; object-fit: contain; object-position: center; mix-blend-mode: screen; }
 .footer-inner nav { display: flex; gap: 1.15rem; }
 .footer-inner nav a { color: oklch(0.85 0.02 300 / 0.8); }
 .footer-inner nav a:hover { color: var(--hero-ink); }
