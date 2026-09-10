@@ -1,4 +1,5 @@
 @extends('layouts.site')
+@use('App\Support\Schedule')
 
 @section('title', 'آموزشگاه موسیقی باورستان')
 
@@ -10,9 +11,10 @@
         <div class="hero-glow"></div>
       </div>
       <div class="hero-content shell">
+        <p class="hero-eyebrow reveal">آموزش تعهد محور</p>
         <h1 class="hero-title reveal">مسیر روشن از تمرین تا اجرا</h1>
         <p class="hero-lead reveal">
-          کلاس‌های گروهی و خصوصی با اساتید مجرب؛ از پیانو و گیتار تا آواز، ویلن، تار و تنبک — در قلب تهران.
+          کلاس‌های گروهی و خصوصی با مدرسان مجرب؛ از پیانو و گیتار تا آواز، ویلن، تار و تنبک — در قلب تهران.
         </p>
         <div class="hero-actions reveal">
           <a class="btn btn-primary btn-lg" href="#classes">مشاهده کلاس‌ها</a>
@@ -21,24 +23,16 @@
       </div>
     </section>
 
+    @if($stats->isNotEmpty())
     <section class="trust shell" aria-label="نکات کلیدی">
+      @foreach($stats as $stat)
       <div class="trust-item">
-        <strong>۸ گروه</strong>
-        <span>ساز و رشته آموزشی</span>
+        <strong>{{ $stat->value }}</strong>
+        <span>{{ $stat->caption }}</span>
       </div>
-      <div class="trust-item">
-        <strong>۹ استاد</strong>
-        <span>مدرسین حرفه‌ای</span>
-      </div>
-      <div class="trust-item">
-        <strong>گروهی و خصوصی</strong>
-        <span>مناسب هر سطح</span>
-      </div>
-      <div class="trust-item">
-        <strong>تهران مرکز</strong>
-        <span>کریمخان، خیابان اراک</span>
-      </div>
+      @endforeach
     </section>
+    @endif
 
     <section id="classes" class="section shell">
       <header class="section-head">
@@ -47,131 +41,38 @@
       </header>
 
       <div class="groups">
+        @foreach($groups as $group)
         <article class="group">
           <div class="group-head">
-            <h3>پیانو</h3>
-            <span class="group-icon" aria-hidden="true">♪</span>
+            <h3>{{ $group['instrument'] }}</h3>
+            <span class="group-icon" aria-hidden="true">{{ $group['icon'] }}</span>
           </div>
           <ul class="teacher-list">
+            @foreach($group['teachers'] as $teacher)
+            @php
+              $freeCount = count($slots) - count($booked[$teacher['slug']] ?? []);
+            @endphp
             <li class="teacher">
               <div class="teacher-info">
-                <span class="teacher-name">الهام جمالی‌پویا</span>
-                <span class="teacher-day">دوشنبه‌ها</span>
+                <span class="teacher-name">{{ $teacher['name'] }}</span>
+                <span class="teacher-day">{{ $teacher['day_label'] }} · {{ Schedule::toPersianDigits((string) $slotStart) }} تا {{ Schedule::toPersianDigits((string) $slotEnd) }}</span>
+                <span class="teacher-free {{ $freeCount ? '' : 'is-full' }}">
+                  @if($freeCount)
+                    {{ Schedule::toPersianDigits((string) $freeCount) }} ساعت خالی
+                  @else
+                    ظرفیت تکمیل است
+                  @endif
+                </span>
               </div>
-              <button class="btn btn-outline btn-sm register-btn" type="button" data-teacher="piano-jamalipouya">ثبت‌نام</button>
+              <button class="btn btn-outline btn-sm register-btn" type="button"
+                      data-teacher="{{ $teacher['slug'] }}" @disabled($freeCount === 0)>
+                {{ $freeCount ? 'ثبت‌نام' : 'تکمیل' }}
+              </button>
             </li>
-            <li class="teacher">
-              <div class="teacher-info">
-                <span class="teacher-name">مریم صارمی</span>
-                <span class="teacher-day">یکشنبه‌ها</span>
-              </div>
-              <button class="btn btn-outline btn-sm register-btn" type="button" data-teacher="piano-saremi">ثبت‌نام</button>
-            </li>
+            @endforeach
           </ul>
         </article>
-
-        <article class="group">
-          <div class="group-head">
-            <h3>گیتار</h3>
-            <span class="group-icon" aria-hidden="true">♬</span>
-          </div>
-          <ul class="teacher-list">
-            <li class="teacher">
-              <div class="teacher-info">
-                <span class="teacher-name">مهرزاد اسکندری</span>
-                <span class="teacher-day">یکشنبه‌ها</span>
-              </div>
-              <button class="btn btn-outline btn-sm register-btn" type="button" data-teacher="guitar-eskandari">ثبت‌نام</button>
-            </li>
-            <li class="teacher">
-              <div class="teacher-info">
-                <span class="teacher-name">آرزو حسینی</span>
-                <span class="teacher-day">چهارشنبه‌ها</span>
-              </div>
-              <button class="btn btn-outline btn-sm register-btn" type="button" data-teacher="guitar-hosseini">ثبت‌نام</button>
-            </li>
-          </ul>
-        </article>
-
-        <article class="group">
-          <div class="group-head">
-            <h3>گیتار الکتریک</h3>
-            <span class="group-icon" aria-hidden="true">⚡</span>
-          </div>
-          <ul class="teacher-list">
-            <li class="teacher">
-              <div class="teacher-info">
-                <span class="teacher-name">میثم طاهری</span>
-                <span class="teacher-day">دوشنبه‌ها</span>
-              </div>
-              <button class="btn btn-outline btn-sm register-btn" type="button" data-teacher="eguitar-taheri">ثبت‌نام</button>
-            </li>
-          </ul>
-        </article>
-
-        <article class="group">
-          <div class="group-head">
-            <h3>آواز و صداسازی</h3>
-            <span class="group-icon" aria-hidden="true">🎤</span>
-          </div>
-          <ul class="teacher-list">
-            <li class="teacher">
-              <div class="teacher-info">
-                <span class="teacher-name">امیر اکبری</span>
-                <span class="teacher-day">چهارشنبه‌ها</span>
-              </div>
-              <button class="btn btn-outline btn-sm register-btn" type="button" data-teacher="vocal-akbari">ثبت‌نام</button>
-            </li>
-          </ul>
-        </article>
-
-        <article class="group">
-          <div class="group-head">
-            <h3>ویلن</h3>
-            <span class="group-icon" aria-hidden="true">🎻</span>
-          </div>
-          <ul class="teacher-list">
-            <li class="teacher">
-              <div class="teacher-info">
-                <span class="teacher-name">نرگس خجسته</span>
-                <span class="teacher-day">سه‌شنبه‌ها</span>
-              </div>
-              <button class="btn btn-outline btn-sm register-btn" type="button" data-teacher="violin-khojasteh">ثبت‌نام</button>
-            </li>
-          </ul>
-        </article>
-
-        <article class="group">
-          <div class="group-head">
-            <h3>تار</h3>
-            <span class="group-icon" aria-hidden="true">♩</span>
-          </div>
-          <ul class="teacher-list">
-            <li class="teacher">
-              <div class="teacher-info">
-                <span class="teacher-name">امین اکبرپور</span>
-                <span class="teacher-day">چهارشنبه‌ها</span>
-              </div>
-              <button class="btn btn-outline btn-sm register-btn" type="button" data-teacher="tar-akbarpour">ثبت‌نام</button>
-            </li>
-          </ul>
-        </article>
-
-        <article class="group">
-          <div class="group-head">
-            <h3>تنبک</h3>
-            <span class="group-icon" aria-hidden="true">🥁</span>
-          </div>
-          <ul class="teacher-list">
-            <li class="teacher">
-              <div class="teacher-info">
-                <span class="teacher-name">محمدحسین میراج</span>
-                <span class="teacher-day">یکشنبه‌ها</span>
-              </div>
-              <button class="btn btn-outline btn-sm register-btn" type="button" data-teacher="tonbak-miraj">ثبت‌نام</button>
-            </li>
-          </ul>
-        </article>
+        @endforeach
       </div>
     </section>
 
@@ -209,74 +110,179 @@
     </section>
     @endif
 
+    <section id="music" class="section shell">
+      <header class="section-head">
+        <h2>موسیقی</h2>
+        <p>قطعاتی از اجراهای هنرجویان و مدرسان آموزشگاه باورستان.</p>
+      </header>
+
+      @if($tracks->isEmpty())
+        <div class="empty-state">
+          <span class="empty-icon" aria-hidden="true">🎵</span>
+          <p class="empty-title">هنوز قطعه‌ای بارگذاری نشده است</p>
+          <p class="empty-sub">به‌زودی اجراهای هنرجویان و مدرسان در این بخش قرار می‌گیرد.</p>
+        </div>
+      @else
+        <div class="tracks">
+          @foreach($tracks as $track)
+            <article class="track">
+              <div class="track-head">
+                <span class="track-icon" aria-hidden="true">♫</span>
+                <div class="track-info">
+                  <h3 class="track-title">{{ $track->title }}</h3>
+                  @if($track->artist)
+                    <p class="track-artist">{{ $track->artist }}</p>
+                  @endif
+                </div>
+                @if($track->file_size_label)
+                  <span class="track-size">{{ $track->file_size_label }}</span>
+                @endif
+              </div>
+
+              @if($track->description)
+                <p class="track-desc">{{ $track->description }}</p>
+              @endif
+
+              <audio class="track-player" controls preload="none"
+                     src="{{ route('music.stream', $track) }}">
+                مرورگر شما از پخش صدا پشتیبانی نمی‌کند.
+              </audio>
+            </article>
+          @endforeach
+        </div>
+      @endif
+    </section>
     <section id="register" class="section {{ $latestPosts->isNotEmpty() ? '' : 'section-tint' }}">
       <div class="shell">
         <header class="section-head">
           <h2>ثبت‌نام در کلاس‌ها</h2>
-          <p>استاد و گروه مورد نظر خود را انتخاب کنید و اطلاعات تماس را وارد کنید تا برای هماهنگی با شما تماس بگیریم.</p>
+          <p>استاد و ساعت مورد نظر خود را انتخاب کنید و اطلاعات تماس را وارد کنید تا برای هماهنگی با شما تماس بگیریم.</p>
         </header>
 
+        @if(session('register_success'))
+          <p class="form-flash is-success" role="status">{{ session('register_success') }}</p>
+        @endif
+
+        @if(session('cancel_success'))
+          <p class="form-flash is-info" role="status">{{ session('cancel_success') }}</p>
+        @endif
+
         <div class="register-layout">
-          <form class="register-form" id="register-form" novalidate>
+          <form class="register-form" id="register-form" method="POST" action="{{ route('register.store') }}">
+            @csrf
             <div class="form-grid">
               <div class="field field-full">
                 <label for="teacher">استاد / گروه انتخابی</label>
                 <select id="teacher" name="teacher" required>
                   <option value="">انتخاب استاد...</option>
-                  <optgroup label="پیانو">
-                    <option value="piano-jamalipouya">الهام جمالی‌پویا — دوشنبه‌ها</option>
-                    <option value="piano-saremi">مریم صارمی — یکشنبه‌ها</option>
+                  @foreach($groups as $group)
+                  <optgroup label="{{ $group['instrument'] }}">
+                    @foreach($group['teachers'] as $teacher)
+                    @php
+                      $isFull = count($booked[$teacher['slug']] ?? []) >= count($slots);
+                    @endphp
+                    <option value="{{ $teacher['slug'] }}"
+                            @selected(old('teacher') === $teacher['slug'])
+                            @disabled($isFull)>
+                      {{ $teacher['name'] }} — {{ $teacher['day_label'] }}{{ $isFull ? ' (تکمیل)' : '' }}
+                    </option>
+                    @endforeach
                   </optgroup>
-                  <optgroup label="گیتار">
-                    <option value="guitar-eskandari">مهرزاد اسکندری — یکشنبه‌ها</option>
-                    <option value="guitar-hosseini">آرزو حسینی — چهارشنبه‌ها</option>
-                  </optgroup>
-                  <optgroup label="گیتار الکتریک">
-                    <option value="eguitar-taheri">میثم طاهری — دوشنبه‌ها</option>
-                  </optgroup>
-                  <optgroup label="آواز و صداسازی">
-                    <option value="vocal-akbari">امیر اکبری — چهارشنبه‌ها</option>
-                  </optgroup>
-                  <optgroup label="ویلن">
-                    <option value="violin-khojasteh">نرگس خجسته — سه‌شنبه‌ها</option>
-                  </optgroup>
-                  <optgroup label="تار">
-                    <option value="tar-akbarpour">امین اکبرپور — چهارشنبه‌ها</option>
-                  </optgroup>
-                  <optgroup label="تنبک">
-                    <option value="tonbak-miraj">محمدحسین میراج — یکشنبه‌ها</option>
-                  </optgroup>
+                  @endforeach
                 </select>
               </div>
+
+              <div class="field field-full slot-field">
+                <label id="slot-label">ساعت کلاس</label>
+                <p class="slot-hint" data-slot-hint>ابتدا استاد را انتخاب کنید تا ساعت‌های خالی نمایش داده شود.</p>
+
+                @foreach($teachers as $slug => $teacher)
+                <div class="slot-group" data-slot-group="{{ $slug }}" hidden>
+                  <p class="slot-day">
+                    کلاس‌های {{ $teacher['day_label'] }} — هر جلسه ۳۰ دقیقه
+                  </p>
+                  <div class="slot-options" role="radiogroup" aria-labelledby="slot-label">
+                    @foreach($slots as $slot)
+                    @php
+                      $isTaken = in_array($slot, $booked[$slug] ?? [], true);
+                    @endphp
+                    <label class="slot{{ $isTaken ? ' is-taken' : '' }}">
+                      <input type="radio" name="slot" value="{{ $slot }}"
+                             @disabled($isTaken)
+                             @checked(old('teacher') === $slug && old('slot') === $slot) />
+                      <span>{{ Schedule::toPersianDigits($slot) }}</span>
+                    </label>
+                    @endforeach
+                  </div>
+                  <p class="slot-legend">ساعت‌های کم‌رنگ قبلاً رزرو شده‌اند.</p>
+                </div>
+                @endforeach
+              </div>
+
               <div class="field">
                 <label for="name">نام و نام خانوادگی</label>
-                <input id="name" name="name" type="text" autocomplete="name" required placeholder="مثلاً علی محمدی" />
+                <input id="name" name="name" type="text" autocomplete="name" required value="{{ old('name') }}" placeholder="مثلاً علی محمدی" />
               </div>
               <div class="field">
                 <label for="phone">شماره تماس</label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="۰۹۱۲..." inputmode="tel" />
+                <input id="phone" name="phone" type="tel" autocomplete="tel" required value="{{ old('phone') }}" placeholder="۰۹۱۲..." inputmode="tel" />
+              </div>
+              <div class="field">
+                <label for="national-id">شماره ملی</label>
+                <input id="national-id" name="national_id" type="text" inputmode="numeric" maxlength="10" required value="{{ old('national_id') }}" placeholder="۱۰ رقم، بدون خط تیره" />
+              </div>
+              <div class="field">
+                <label for="education">سطح تحصیلات</label>
+                <select id="education" name="education">
+                  <option value="">انتخاب کنید...</option>
+                  @foreach(['زیر دیپلم', 'دیپلم', 'کاردانی', 'کارشناسی', 'کارشناسی ارشد', 'دکتری'] as $option)
+                    <option @selected(old('education') === $option)>{{ $option }}</option>
+                  @endforeach
+                </select>
               </div>
               <div class="field">
                 <label for="level">سطح تقریبی</label>
                 <select id="level" name="level">
-                  <option>مبتدی (از صفر)</option>
-                  <option>متوسط</option>
-                  <option>پیشرفته</option>
+                  @foreach(['مبتدی (از صفر)', 'متوسط', 'پیشرفته'] as $option)
+                    <option @selected(old('level') === $option)>{{ $option }}</option>
+                  @endforeach
                 </select>
               </div>
               <div class="field">
                 <label for="mode">نوع کلاس</label>
                 <select id="mode" name="mode">
-                  <option>خصوصی</option>
-                  <option>گروهی</option>
-                  <option>فرقی ندارد</option>
+                  @foreach(['خصوصی', 'گروهی', 'فرقی ندارد'] as $option)
+                    <option @selected(old('mode') === $option)>{{ $option }}</option>
+                  @endforeach
                 </select>
+              </div>
+              <div class="field">
+                <label for="referral-source">از چه طریق با ما آشنا شدید؟</label>
+                <select id="referral-source" name="referral_source">
+                  <option value="">انتخاب کنید...</option>
+                  @foreach(['اینستاگرام', 'جست‌وجو در گوگل', 'معرفی دوستان و آشنایان', 'عبور از مقابل آموزشگاه', 'بنر و تبلیغات محیطی', 'سایر'] as $option)
+                    <option @selected(old('referral_source') === $option)>{{ $option }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="field">
+                <label for="referrer">معرف</label>
+                <input id="referrer" name="referrer" type="text" value="{{ old('referrer') }}" placeholder="نام معرف (اختیاری)" />
               </div>
               <div class="field field-full">
                 <label for="message">توضیحات (اختیاری)</label>
-                <textarea id="message" name="message" rows="3" placeholder="مثلاً ترجیح می‌دهم آخر هفته‌ها کلاس داشته باشم..."></textarea>
+                <textarea id="message" name="message" rows="3" placeholder="مثلاً ترجیح می‌دهم آخر هفته‌ها کلاس داشته باشم...">{{ old('message') }}</textarea>
               </div>
             </div>
+
+            @if($errors->register->any())
+              <ul class="form-errors" role="alert">
+                @foreach($errors->register->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            @endif
+
             <button type="submit" class="btn btn-primary btn-lg form-submit">ارسال درخواست ثبت‌نام</button>
             <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
           </form>
@@ -285,9 +291,14 @@
             <h3>راهنمای ثبت‌نام</h3>
             <ol class="steps">
               <li>روی «ثبت‌نام» استاد مورد نظر بزنید تا این‌جا انتخاب شود.</li>
-              <li>نام و شماره تماس خود را وارد کنید.</li>
-              <li>ما برای هماهنگی روز و ساعت با شما تماس می‌گیریم.</li>
+              <li>یکی از ساعت‌های خالی را انتخاب کنید.</li>
+              <li>نام، شماره تماس و شماره ملی خود را وارد کنید.</li>
+              <li>ما برای هماهنگی نهایی با شما تماس می‌گیریم.</li>
             </ol>
+            <p class="aside-note">
+              هر شماره ملی برای هر استاد فقط یک بار قابل ثبت است.
+              برای تغییر ساعت، ابتدا <a href="#manage">رزرو قبلی را لغو کنید</a>.
+            </p>
             <div class="aside-contact">
               <p>ثبت‌نام تلفنی:</p>
               <a class="phone-link" href="tel:+989355218250">۰۹۳۵ ۵۲۱ ۸۲۵۰</a>
@@ -295,6 +306,62 @@
             </div>
           </aside>
         </div>
+      </div>
+    </section>
+
+    <section id="manage" class="section shell">
+      <header class="section-head">
+        <h2>لغو یا تغییر رزرو</h2>
+        <p>شماره ملی و شماره تماسی که با آن ثبت‌نام کرده‌اید را وارد کنید. ساعتی که لغو شود بلافاصله برای دیگران آزاد می‌شود و می‌توانید دوباره ثبت‌نام کنید.</p>
+      </header>
+
+      <div class="manage-layout">
+        <form class="register-form manage-form" method="POST" action="{{ route('register.manage') }}">
+          @csrf
+          <div class="form-grid">
+            <div class="field">
+              <label for="manage-national-id">شماره ملی</label>
+              <input id="manage-national-id" name="national_id" type="text" inputmode="numeric" maxlength="10" required placeholder="۱۰ رقم، بدون خط تیره" />
+            </div>
+            <div class="field">
+              <label for="manage-phone">شماره تماس</label>
+              <input id="manage-phone" name="phone" type="tel" required placeholder="۰۹۱۲..." inputmode="tel" />
+            </div>
+          </div>
+
+          @if($errors->manage->any())
+            <ul class="form-errors" role="alert">
+              @foreach($errors->manage->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          @endif
+
+          <button type="submit" class="btn btn-primary form-submit">مشاهده رزرو من</button>
+        </form>
+
+        @if(session('manage_results'))
+        <div class="manage-results">
+          <h3>رزروهای شما</h3>
+          @foreach(session('manage_results') as $result)
+          <div class="manage-card">
+            <div class="manage-card-info">
+              <span class="manage-card-teacher">{{ $result['teacher_name'] }}</span>
+              <span class="manage-card-instrument">{{ $result['instrument'] }}</span>
+              <span class="manage-card-time">{{ $result['schedule_label'] }}</span>
+            </div>
+            <form method="POST" action="{{ route('register.cancel') }}"
+                  onsubmit="return confirm('این رزرو لغو شود؟ پس از لغو، ساعت برای دیگران آزاد می‌شود.');">
+              @csrf
+              <input type="hidden" name="registration" value="{{ $result['id'] }}" />
+              <input type="hidden" name="national_id" value="{{ session('manage_national_id') }}" />
+              <input type="hidden" name="phone" value="{{ session('manage_phone') }}" />
+              <button type="submit" class="btn btn-outline btn-sm is-danger">لغو رزرو</button>
+            </form>
+          </div>
+          @endforeach
+        </div>
+        @endif
       </div>
     </section>
 
@@ -314,7 +381,7 @@
       <div class="shell">
         <header class="section-head">
           <h2>موقعیت آموزشگاه</h2>
-          <p>تهران، کریمخان، نجات‌اللهی، خیابان اراک، پلاک ۶۴</p>
+          <p>تهران، کریمخان، نجات‌اللهی، خیابان اراک، پلاک ۶۴، واحد ۵</p>
         </header>
         <div class="location-layout">
           <div class="map-frame">
@@ -349,12 +416,19 @@
         <div class="contact-card">
           <span class="contact-icon" aria-hidden="true">📍</span>
           <h3>آدرس</h3>
-          <p>تهران، کریمخان، نجات‌اللهی، خیابان اراک، پلاک ۶۴</p>
+          <p>تهران، کریمخان، نجات‌اللهی، خیابان اراک، پلاک ۶۴، واحد ۵</p>
         </div>
         <div class="contact-card">
           <span class="contact-icon" aria-hidden="true">⏰</span>
           <h3>ساعات پاسخگویی</h3>
           <p>همه‌روزه، ۱۰ تا ۲۰</p>
+        </div>
+        <div class="contact-card">
+          <span class="contact-icon" aria-hidden="true">💬</span>
+          <h3>کانال بله</h3>
+          <p>اخبار، اطلاعیه‌ها و نمونه اجراها را در بله دنبال کنید.</p>
+          <a class="btn btn-primary btn-sm" href="https://ble.ir/bavarestan_honar"
+             target="_blank" rel="noopener">عضویت در کانال بله</a>
         </div>
       </div>
     </section>

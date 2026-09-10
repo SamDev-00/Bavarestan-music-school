@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Posts\Tables;
 
+use App\Support\Jalali;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -31,11 +32,11 @@ class PostsTable
                     ->boolean(),
                 TextColumn::make('published_at')
                     ->label('تاریخ انتشار')
-                    ->dateTime('Y-m-d H:i')
+                    ->formatStateUsing(fn ($state) => Jalali::dateTime($state))
                     ->sortable(),
                 TextColumn::make('updated_at')
                     ->label('آخرین ویرایش')
-                    ->dateTime('Y-m-d H:i')
+                    ->formatStateUsing(fn ($state) => Jalali::dateTime($state))
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

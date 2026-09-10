@@ -29,48 +29,67 @@
   }
 
   // Pick an instructor -> preselect in the registration form and scroll to it
+  const slotGroups = document.querySelectorAll("[data-slot-group]");
+  const slotHint = document.querySelector("[data-slot-hint]");
+
   const highlightSelected = (value) => {
     registerButtons.forEach((btn) => {
       btn.classList.toggle("is-selected", btn.dataset.teacher === value);
     });
   };
 
+  // Show only the chosen instructor's half-hour slots, and clear a slot that
+  // was picked for a different instructor so it can't be submitted by mistake.
+  const showSlotsFor = (value) => {
+    let shown = false;
+
+    slotGroups.forEach((group) => {
+      const matches = group.dataset.slotGroup === value;
+      group.hidden = !matches;
+
+      if (matches) {
+        shown = true;
+      } else {
+        group.querySelectorAll("input[name='slot']:checked").forEach((input) => {
+          input.checked = false;
+        });
+      }
+    });
+
+    if (slotHint) slotHint.hidden = shown;
+  };
+
+  const selectTeacher = (value) => {
+    if (teacherSelect) teacherSelect.value = value;
+    highlightSelected(value);
+    showSlotsFor(value);
+  };
+
   registerButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
-      const value = btn.dataset.teacher;
-      if (teacherSelect) {
-        teacherSelect.value = value;
-        highlightSelected(value);
-      }
+      selectTeacher(btn.dataset.teacher);
       const target = document.querySelector("#register");
       if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-      const nameField = document.querySelector("#name");
-      if (nameField) {
-        window.setTimeout(() => nameField.focus({ preventScroll: true }), 500);
-      }
     });
   });
 
   if (teacherSelect) {
-    teacherSelect.addEventListener("change", () => highlightSelected(teacherSelect.value));
+    teacherSelect.addEventListener("change", () => selectTeacher(teacherSelect.value));
+    // Restore the picker when a validation error bounced the form back.
+    if (teacherSelect.value) showSlotsFor(teacherSelect.value);
   }
 
   if (form && status) {
     form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        status.textContent = "لطفاً استاد، نام و شماره تماس را کامل کنید.";
+      // The radio group can't be marked required in HTML, so check it here.
+      if (!form.querySelector("input[name='slot']:checked")) {
+        event.preventDefault();
+        status.textContent = "لطفاً یکی از ساعت‌های خالی را انتخاب کنید.";
+        const visible = document.querySelector("[data-slot-group]:not([hidden])");
+        (visible || form).scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
-      const selected = teacherSelect && teacherSelect.selectedOptions.length
-        ? teacherSelect.selectedOptions[0].textContent.trim()
-        : "";
-      status.textContent = selected
-        ? `درخواست ثبت‌نام شما برای «${selected}» ثبت شد. به‌زودی تماس می‌گیریم.`
-        : "درخواست شما ثبت شد. به‌زودی با شما تماس می‌گیریم.";
-      form.reset();
-      highlightSelected("");
+      status.textContent = "در حال ثبت درخواست...";
     });
   }
 })();

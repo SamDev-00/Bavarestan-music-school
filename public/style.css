@@ -64,54 +64,6 @@ p { text-wrap: pretty; }
 }
 .skip-link:focus { top: 1rem; }
 
-/* Announcements ticker */
-.announce {
-  background: var(--ink);
-  color: var(--hero-ink);
-  font-size: 0.85rem;
-}
-.announce-inner {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  min-height: 2.75rem;
-}
-.announce-flag {
-  flex-shrink: 0;
-  font-weight: 700;
-  color: oklch(0.78 0.11 300);
-  font-size: 0.8rem;
-  padding-inline-end: 0.85rem;
-  border-inline-end: 1px solid oklch(1 0 0 / 0.2);
-}
-.announce-track {
-  display: flex;
-  gap: 1.5rem;
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  scrollbar-width: none;
-  padding-block: 0.5rem;
-}
-.announce-track::-webkit-scrollbar { display: none; }
-.announce-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
-  scroll-snap-align: start;
-  color: oklch(0.96 0.005 90 / 0.92);
-  transition: color 0.2s var(--ease-out);
-}
-.announce-item:hover { color: var(--hero-ink); }
-.announce-tag {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--hero-ink);
-  background: linear-gradient(135deg, oklch(0.5 0.15 322), oklch(0.5 0.11 250));
-  padding: 0.12rem 0.55rem;
-  border-radius: 999px;
-}
-
 /* Header */
 .site-header {
   position: sticky;
@@ -197,8 +149,7 @@ p { text-wrap: pretty; }
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
-.nav-toggle:focus-visible,
-.announce-item:focus-visible {
+.nav-toggle:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
@@ -259,7 +210,7 @@ textarea:focus-visible,
 /* Trust */
 .trust {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
@@ -517,7 +468,6 @@ textarea { resize: vertical; min-height: 6rem; }
   .trust-item strong { font-size: 1.2rem; }
   .form-grid { grid-template-columns: 1fr; }
   .groups { grid-template-columns: 1fr; }
-  .announce-flag { display: none; }
 }
 
 /* Blog */
@@ -592,3 +542,315 @@ textarea { resize: vertical; min-height: 6rem; }
 .gallery-item img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; transition: transform 0.4s var(--ease-out); }
 .gallery-item:hover img { transform: scale(1.04); }
 .gallery-item figcaption { padding: 0.6rem 0.75rem; font-size: 0.85rem; color: var(--muted); }
+
+/* ---------- زمان‌بندی کلاس‌ها، ثبت‌نام و لغو رزرو ---------- */
+
+.teacher-free { font-size: 0.78rem; font-weight: 600; color: var(--primary); }
+.teacher-free.is-full { color: var(--muted); font-weight: 500; }
+
+.register-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.register-btn:disabled:hover { background: var(--bg); color: var(--primary); }
+
+/* شبکهٔ بازه‌های ۳۰ دقیقه‌ای */
+.slot-field { gap: 0.55rem; }
+.slot-hint { font-size: 0.85rem; color: var(--muted); }
+.slot-group {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 0.9rem;
+  background: var(--surface);
+}
+.slot-day { font-size: 0.85rem; color: var(--muted); font-weight: 600; margin-bottom: 0.65rem; }
+.slot-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(4.6rem, 1fr));
+  gap: 0.45rem;
+}
+.slot { position: relative; display: block; }
+.slot input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  min-height: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.slot span {
+  display: block;
+  text-align: center;
+  padding: 0.5rem 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  transition: border-color 0.15s var(--ease-out), background 0.15s var(--ease-out), color 0.15s var(--ease-out);
+}
+.slot input:hover + span { border-color: var(--primary); }
+.slot input:focus-visible + span { outline: 2px solid var(--primary); outline-offset: 2px; }
+.slot input:checked + span { background: var(--primary); border-color: var(--primary); color: var(--hero-ink); }
+.slot.is-taken span { opacity: 0.4; background: var(--surface); text-decoration: line-through; }
+.slot.is-taken input { cursor: not-allowed; }
+.slot-legend { margin-top: 0.6rem; font-size: 0.78rem; color: var(--muted); }
+
+/* پیام‌های موفقیت و خطا */
+.form-flash {
+  border-radius: var(--radius);
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.form-flash.is-success {
+  background: oklch(0.95 0.05 150);
+  border: 1px solid oklch(0.82 0.08 150);
+  color: oklch(0.35 0.09 150);
+}
+.form-flash.is-info {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+.form-errors {
+  list-style: none;
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.9rem;
+  border-radius: var(--radius);
+  background: oklch(0.96 0.04 25);
+  border: 1px solid oklch(0.85 0.09 25);
+  color: oklch(0.4 0.14 25);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.aside-note { margin-top: 1rem; font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+.aside-note a { color: var(--primary); font-weight: 600; }
+
+/* لغو رزرو */
+.manage-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.25rem, 3.5vw, 2rem);
+  align-items: start;
+}
+.manage-results { display: grid; gap: 0.75rem; align-content: start; }
+.manage-results h3 { font-family: var(--font-display); font-size: 1.4rem; }
+.manage-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+.manage-card-info { display: grid; gap: 0.15rem; }
+.manage-card-teacher { font-weight: 700; }
+.manage-card-instrument { font-size: 0.82rem; color: var(--muted); }
+.manage-card-time { font-size: 0.88rem; font-weight: 600; color: var(--primary); }
+.btn.is-danger { color: oklch(0.48 0.16 25); border-color: oklch(0.48 0.16 25); }
+.btn.is-danger:hover { background: oklch(0.48 0.16 25); color: var(--hero-ink); }
+
+@media (max-width: 860px) {
+  .manage-layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .slot-options { grid-template-columns: repeat(auto-fill, minmax(4rem, 1fr)); }
+  .manage-card { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+}
+
+/* ---------- کتب آموزشی ---------- */
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+.book-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "icon body"
+    "download download";
+  gap: 0.35rem 1rem;
+  padding: 1.15rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+}
+.book-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+.book-icon {
+  grid-area: icon;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3.6rem;
+  border-radius: var(--radius);
+  background: oklch(0.96 0.04 25);
+  border: 1px solid oklch(0.85 0.09 25);
+  color: oklch(0.45 0.16 25);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  direction: ltr;
+}
+.book-body { grid-area: body; display: grid; gap: 0.3rem; align-content: start; }
+.book-title { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.35; }
+.book-author { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+.book-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+.book-meta { font-size: 0.78rem; color: var(--muted); }
+.book-download { grid-area: download; margin-top: 0.9rem; text-align: center; }
+
+@media (max-width: 640px) {
+  .books-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- تهیه کتب آموزشی ---------- */
+
+.sale-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+.sale-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.15rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+}
+.sale-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+.sale-body { display: grid; gap: 0.3rem; align-content: start; flex: 1 1 auto; }
+.sale-title { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.35; }
+.sale-author { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+.sale-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+.sale-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+.sale-price {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+.sale-note { margin-top: 1.25rem; font-size: 0.9rem; color: var(--muted); }
+.phone-inline { display: inline; font-weight: 700; color: var(--primary); }
+
+@media (max-width: 640px) {
+  .sale-grid { grid-template-columns: 1fr; }
+  .sale-foot { flex-direction: column; align-items: stretch; }
+  .sale-foot .btn { width: 100%; }
+}
+
+/* ---------- تعمیرات و خدمات سازها ---------- */
+
+.service-list {
+  padding-inline-start: 1.15rem;
+  display: grid;
+  gap: 0.55rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* ---------- دکمهٔ ورود ادمین ---------- */
+
+.admin-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.95rem;
+  border: 1px solid oklch(1 0 0 / 0.25);
+  border-radius: 999px;
+  color: oklch(0.85 0.02 300 / 0.8);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.2s var(--ease-out), border-color 0.2s var(--ease-out), background 0.2s var(--ease-out);
+}
+.admin-login:hover {
+  color: var(--hero-ink);
+  border-color: oklch(1 0 0 / 0.5);
+  background: oklch(1 0 0 / 0.08);
+}
+.admin-login svg { width: 0.95rem; height: 0.95rem; flex-shrink: 0; }
+
+@media (max-width: 640px) {
+  .admin-login { width: 100%; justify-content: center; }
+}
+
+/* ---------- بخش موسیقی ---------- */
+
+.tracks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+.track {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.15rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s var(--ease-out);
+}
+.track:hover { border-color: var(--primary); }
+.track-head { display: flex; align-items: center; gap: 0.85rem; }
+.track-icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, oklch(0.5 0.15 322), oklch(0.5 0.11 250));
+  color: var(--hero-ink);
+  font-size: 1.15rem;
+}
+.track-info { flex: 1 1 auto; min-width: 0; display: grid; gap: 0.15rem; }
+.track-title { font-family: var(--font-display); font-size: 1.3rem; line-height: 1.35; }
+.track-artist { font-size: 0.82rem; color: var(--muted); font-weight: 600; }
+.track-size { flex-shrink: 0; font-size: 0.75rem; color: var(--muted); }
+.track-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+.track-player { width: 100%; height: 2.6rem; direction: ltr; }
+
+@media (max-width: 640px) {
+  .tracks { grid-template-columns: 1fr; }
+}
+
+/* ---------- خط بالای عنوان هیرو ---------- */
+
+.hero-eyebrow {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.8vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: oklch(0.93 0.07 300);
+  margin-bottom: 0.3rem;
+}
+
+@media (max-width: 640px) {
+  .hero-eyebrow { font-size: clamp(1.45rem, 6.5vw, 1.95rem); }
+}

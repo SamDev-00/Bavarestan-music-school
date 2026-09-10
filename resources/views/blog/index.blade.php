@@ -30,7 +30,7 @@
               </a>
               <div class="blog-card-body">
                 @if($post->published_at)
-                  <time class="blog-card-date" datetime="{{ $post->published_at->toDateString() }}">{{ $post->published_at->format('Y/m/d') }}</time>
+                  <time class="blog-card-date" datetime="{{ $post->published_at->toDateString() }}">{{ \App\Support\Jalali::numeric($post->published_at) }}</time>
                 @endif
                 <h3><a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a></h3>
                 @if($post->excerpt)

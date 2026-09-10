@@ -11,7 +11,7 @@
       <header class="blog-post-head">
         <h1>{{ $post->title }}</h1>
         @if($post->published_at)
-          <time class="blog-card-date" datetime="{{ $post->published_at->toDateString() }}">{{ $post->published_at->format('Y/m/d') }}</time>
+          <time class="blog-card-date" datetime="{{ $post->published_at->toDateString() }}">{{ \App\Support\Jalali::numeric($post->published_at) }}</time>
         @endif
       </header>
 
