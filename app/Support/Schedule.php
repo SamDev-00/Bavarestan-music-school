@@ -13,7 +13,7 @@ use App\Models\Registration;
 class Schedule
 {
     /**
-     * فهرست بازه‌های زمانی به صورت 'HH:MM' — مثلاً ۱۰:۰۰ تا ۱۹:۳۰.
+     * فهرست بازه‌های زمانی به صورت 'HH:MM' — مثلاً ۱۲:۰۰ تا ۱۹:۳۰.
      *
      * @return list<string>
      */

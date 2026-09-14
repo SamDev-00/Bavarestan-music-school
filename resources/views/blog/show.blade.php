@@ -15,9 +15,7 @@
         @endif
       </header>
 
-      @if($post->cover_image)
-        <img class="blog-post-cover" src="{{ asset('storage/'.$post->cover_image) }}" alt="{{ $post->title }}" />
-      @endif
+      <img class="blog-post-cover{{ $post->cover_image ? '' : ' is-default' }}" src="{{ $post->cover_url }}" alt="{{ $post->title }}" />
 
       <div class="blog-post-body prose">
         {!! $post->body !!}

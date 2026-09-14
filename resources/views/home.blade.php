@@ -10,15 +10,20 @@
         <div class="hero-keys"></div>
         <div class="hero-glow"></div>
       </div>
-      <div class="hero-content shell">
-        <p class="hero-eyebrow reveal">آموزش تعهد محور</p>
-        <h1 class="hero-title reveal">مسیر روشن از تمرین تا اجرا</h1>
-        <p class="hero-lead reveal">
-          کلاس‌های گروهی و خصوصی با مدرسان مجرب؛ از پیانو و گیتار تا آواز، ویلن، تار و تنبک — در قلب تهران.
-        </p>
-        <div class="hero-actions reveal">
-          <a class="btn btn-primary btn-lg" href="#classes">مشاهده کلاس‌ها</a>
-          <a class="btn btn-light btn-lg" href="#register">ثبت‌نام آنلاین</a>
+      <div class="hero-inner shell">
+        <div class="hero-content">
+          <p class="hero-eyebrow reveal">آموزش تعهد محور</p>
+          <h1 class="hero-title reveal">مسیر روشن از تمرین تا اجرا</h1>
+          <p class="hero-lead reveal">
+            کلاس‌های گروهی و خصوصی با مدرسان مجرب؛ از پیانو و گیتار تا آواز، ویلن، تار و تنبک — در قلب تهران.
+          </p>
+          <div class="hero-actions reveal">
+            <a class="btn btn-primary btn-lg" href="#classes">مشاهده کلاس‌ها</a>
+            <a class="btn btn-light btn-lg" href="#register">ثبت‌نام آنلاین</a>
+          </div>
+        </div>
+        <div class="hero-logo reveal">
+          <img src="{{ asset('images/logo-hero.png') }}" alt="لوگوی آموزشگاه موسیقی باورستان" width="910" height="784" />
         </div>
       </div>
     </section>
@@ -86,12 +91,8 @@
         <div class="blog-grid">
           @foreach($latestPosts as $post)
             <article class="blog-card">
-              <a class="blog-card-media" href="{{ route('blog.show', $post->slug) }}">
-                @if($post->cover_image)
-                  <img src="{{ asset('storage/'.$post->cover_image) }}" alt="{{ $post->title }}" loading="lazy" />
-                @else
-                  <span class="blog-card-placeholder" aria-hidden="true">♪</span>
-                @endif
+              <a class="blog-card-media{{ $post->cover_image ? '' : ' is-default' }}" href="{{ route('blog.show', $post->slug) }}">
+                <img src="{{ $post->cover_url }}" alt="{{ $post->title }}" loading="lazy" />
               </a>
               <div class="blog-card-body">
                 <h3><a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a></h3>

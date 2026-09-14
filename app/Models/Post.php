@@ -54,6 +54,16 @@ class Post extends Model
         return $slug;
     }
 
+    /**
+     * آدرس تصویر کاور؛ اگر مطلب کاور نداشته باشد، کاور پیش‌فرض باورستان.
+     */
+    public function getCoverUrlAttribute(): string
+    {
+        return $this->cover_image
+            ? asset('storage/'.$this->cover_image)
+            : asset('images/blog-default-cover.jpg');
+    }
+
     public function scopePublished($query)
     {
         return $query->where('is_published', true)
