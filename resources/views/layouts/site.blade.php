@@ -42,7 +42,7 @@
       </nav>
 
       <div class="nav-actions">
-        <a class="btn btn-ghost hide-sm" href="tel:+982188927458">تماس</a>
+        <a class="btn btn-ghost hide-sm" href="{{ tel_href(site_setting('contact_phone_primary', '۰۲۱ ۸۸۹۲ ۷۴۵۸')) }}">تماس</a>
         <a class="btn btn-primary hide-sm" href="{{ url('/') }}#register">ثبت‌نام</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="باز کردن منو">
           <span></span>
@@ -70,7 +70,12 @@
         <a href="{{ route('services.create') }}">تعمیرات سازها</a>
         <a href="{{ url('/') }}#register">ثبت‌نام</a>
         <a href="{{ url('/') }}#contact">تماس</a>
-        <a href="https://ble.ir/bavarestan_honar" target="_blank" rel="noopener">کانال بله</a>
+        @if($baleUrl = site_setting('bale_url'))
+        <a href="{{ $baleUrl }}" target="_blank" rel="noopener">کانال بله</a>
+        @endif
+        @if($instagramUrl = site_setting('instagram_url'))
+        <a href="{{ $instagramUrl }}" target="_blank" rel="noopener">اینستاگرام</a>
+        @endif
       </nav>
 
       <a class="admin-login" href="{{ route('filament.admin.auth.login') }}">
@@ -85,7 +90,7 @@
   </footer>
 
   <div class="mobile-bar" aria-label="دسترسی سریع موبایل">
-    <a class="btn btn-ghost" href="tel:+982188927458">تماس</a>
+    <a class="btn btn-ghost" href="{{ tel_href(site_setting('contact_phone_primary', '۰۲۱ ۸۸۹۲ ۷۴۵۸')) }}">تماس</a>
     <a class="btn btn-primary" href="{{ url('/') }}#register">ثبت‌نام</a>
   </div>
 

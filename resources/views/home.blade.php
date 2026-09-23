@@ -323,8 +323,12 @@
             </p>
             <div class="aside-contact">
               <p>ثبت‌نام تلفنی:</p>
-              <a class="phone-link" href="tel:+989355218250">۰۹۳۵ ۵۲۱ ۸۲۵۰</a>
-              <a class="phone-link" href="tel:+982188927458">۰۲۱ ۸۸۹۲ ۷۴۵۸</a>
+              @if($p1 = site_setting('contact_phone_primary'))
+              <a class="phone-link" href="{{ tel_href($p1) }}">{{ $p1 }}</a>
+              @endif
+              @if($p2 = site_setting('contact_phone_secondary'))
+              <a class="phone-link" href="{{ tel_href($p2) }}">{{ $p2 }}</a>
+              @endif
             </div>
           </aside>
         </div>
@@ -399,25 +403,34 @@
       </div>
     </section>
 
+    @php($mapEmbed = site_setting('map_embed_url'))
+    @php($neshanUrl = site_setting('neshan_url'))
+    @php($googleMapsUrl = site_setting('google_maps_url'))
     <section id="location" class="section section-tint">
       <div class="shell">
         <header class="section-head">
           <h2>موقعیت آموزشگاه</h2>
-          <p>تهران، کریمخان، نجات‌اللهی، خیابان اراک، پلاک ۶۴، واحد ۵</p>
+          <p>{{ site_setting('contact_address', 'تهران، کریمخان، نجات‌اللهی، خیابان اراک، پلاک ۶۴، واحد ۵') }}</p>
         </header>
         <div class="location-layout">
+          @if($mapEmbed)
           <div class="map-frame">
             <iframe
               title="نقشه موقعیت آموزشگاه باورستان"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=51.4131910%2C35.7055845%2C51.4191910%2C35.7115845&layer=mapnik&marker=35.7085845%2C51.4161910"
+              src="{{ $mapEmbed }}"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
+          @endif
           <aside class="location-aside">
             <h3>دسترسی</h3>
-            <p>محدوده کریمخان و خیابان نجات‌اللهی؛ نزدیک ایستگاه‌های حمل‌ونقل عمومی.</p>
-            <a class="btn btn-primary" href="https://neshan.org/maps/share/35.7085845126421,51.41619097441435" target="_blank" rel="noopener">مشاهده در نشان</a>
-            <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=35.7085845,51.41619097" target="_blank" rel="noopener">مسیریابی گوگل</a>
+            <p>{{ site_setting('location_access', 'محدوده کریمخان و خیابان نجات‌اللهی؛ نزدیک ایستگاه‌های حمل‌ونقل عمومی.') }}</p>
+            @if($neshanUrl)
+            <a class="btn btn-primary" href="{{ $neshanUrl }}" target="_blank" rel="noopener">مشاهده در نشان</a>
+            @endif
+            @if($googleMapsUrl)
+            <a class="btn btn-ghost" href="{{ $googleMapsUrl }}" target="_blank" rel="noopener">مسیریابی گوگل</a>
+            @endif
           </aside>
         </div>
       </div>
@@ -428,30 +441,49 @@
         <h2>تماس با ما</h2>
         <p>برای مشاوره و هماهنگی کلاس‌ها با ما در ارتباط باشید.</p>
       </header>
+      @php($phonePrimary = site_setting('contact_phone_primary'))
+      @php($phoneSecondary = site_setting('contact_phone_secondary'))
+      @php($instagramUrl = site_setting('instagram_url'))
+      @php($baleUrl = site_setting('bale_url'))
       <div class="contact-grid">
         <div class="contact-card">
           <span class="contact-icon" aria-hidden="true">📞</span>
           <h3>تلفن</h3>
-          <a class="phone-link" href="tel:+989355218250">۰۹۳۵ ۵۲۱ ۸۲۵۰</a>
-          <a class="phone-link" href="tel:+982188927458">۰۲۱ ۸۸۹۲ ۷۴۵۸</a>
+          @if($phonePrimary)
+          <a class="phone-link" href="{{ tel_href($phonePrimary) }}">{{ $phonePrimary }}</a>
+          @endif
+          @if($phoneSecondary)
+          <a class="phone-link" href="{{ tel_href($phoneSecondary) }}">{{ $phoneSecondary }}</a>
+          @endif
         </div>
         <div class="contact-card">
           <span class="contact-icon" aria-hidden="true">📍</span>
           <h3>آدرس</h3>
-          <p>تهران، کریمخان، نجات‌اللهی، خیابان اراک، پلاک ۶۴، واحد ۵</p>
+          <p>{{ site_setting('contact_address', 'تهران، کریمخان، نجات‌اللهی، خیابان اراک، پلاک ۶۴، واحد ۵') }}</p>
         </div>
         <div class="contact-card">
           <span class="contact-icon" aria-hidden="true">⏰</span>
           <h3>ساعات پاسخگویی</h3>
-          <p>همه‌روزه، ۱۰ تا ۲۰</p>
+          <p>{{ site_setting('contact_hours', 'همه‌روزه، ۱۰ تا ۲۰') }}</p>
         </div>
+        @if($instagramUrl)
+        <div class="contact-card">
+          <span class="contact-icon" aria-hidden="true">📸</span>
+          <h3>اینستاگرام</h3>
+          <p>جدیدترین اخبار و نمونه‌کارها را در اینستاگرام ببینید.</p>
+          <a class="btn btn-primary btn-sm" href="{{ $instagramUrl }}"
+             target="_blank" rel="noopener">دنبال کردن در اینستاگرام</a>
+        </div>
+        @endif
+        @if($baleUrl)
         <div class="contact-card">
           <span class="contact-icon" aria-hidden="true">💬</span>
           <h3>کانال بله</h3>
           <p>اخبار، اطلاعیه‌ها و نمونه اجراها را در بله دنبال کنید.</p>
-          <a class="btn btn-primary btn-sm" href="https://ble.ir/bavarestan_honar"
+          <a class="btn btn-primary btn-sm" href="{{ $baleUrl }}"
              target="_blank" rel="noopener">عضویت در کانال بله</a>
         </div>
+        @endif
       </div>
     </section>
   </main>
