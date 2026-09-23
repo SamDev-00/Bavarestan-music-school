@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500;600;700&family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="{{ asset('images/logo-mark.png') }}" />
   <link rel="apple-touch-icon" href="{{ asset('images/logo-mark.png') }}" />
-  <link rel="stylesheet" href="{{ asset('style.css') }}?v=18" />
+  <link rel="stylesheet" href="{{ asset('style.css') }}?v=19" />
 </head>
 <body>
   <a class="skip-link" href="#main">رفتن به محتوا</a>
@@ -29,6 +29,7 @@
       </a>
 
       <nav class="nav-links" id="nav-links" aria-label="منوی اصلی">
+        <a href="{{ route('about') }}">درباره ما</a>
         <a href="{{ url('/') }}#classes">کلاس‌ها</a>
         <a href="{{ route('blog.index') }}">وبلاگ</a>
         <a href="{{ url('/') }}#music">موسیقی</a>
@@ -60,6 +61,7 @@
         <p>© ۱۴۰۵ آموزشگاه موسیقی باورستان — همه حقوق محفوظ است.</p>
       </div>
       <nav aria-label="پیوندهای پاورقی">
+        <a href="{{ route('about') }}">درباره ما</a>
         <a href="{{ url('/') }}#classes">کلاس‌ها</a>
         <a href="{{ route('blog.index') }}">وبلاگ</a>
         <a href="{{ url('/') }}#music">موسیقی</a>
