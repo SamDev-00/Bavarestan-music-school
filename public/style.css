@@ -30,7 +30,9 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
+body { overflow-x: clip; }
 
 body {
   font-family: var(--font-body);
@@ -595,7 +597,7 @@ textarea { resize: vertical; min-height: 6rem; }
 .footer-inner { display: flex; justify-content: space-between; gap: 1.25rem; flex-wrap: wrap; align-items: center; font-size: 0.85rem; }
 .footer-brand { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .footer-logo { width: auto; height: 4.75rem; object-fit: contain; object-position: center; mix-blend-mode: screen; }
-.footer-inner nav { display: flex; gap: 1.15rem; }
+.footer-inner nav { display: flex; flex-wrap: wrap; gap: 0.75rem 1.15rem; }
 .footer-inner nav a { color: oklch(0.85 0.02 300 / 0.8); }
 .footer-inner nav a:hover { color: var(--hero-ink); }
 
@@ -680,6 +682,24 @@ textarea { resize: vertical; min-height: 6rem; }
   .trust-item strong { font-size: 1.2rem; }
   .form-grid { grid-template-columns: 1fr; }
   .groups { grid-template-columns: 1fr; }
+
+  /* Footer stacks and centers instead of overflowing */
+  .footer-inner { flex-direction: column; text-align: center; gap: 1.3rem; }
+  .footer-brand { flex-direction: column; gap: 0.65rem; }
+  .footer-inner nav { justify-content: center; gap: 0.6rem 1.1rem; }
+  .footer-inner nav a { padding-block: 0.15rem; }
+
+  /* Teacher cards: a little roomier and never let the button squeeze */
+  .teacher { padding: 0.85rem 0.9rem; gap: 0.6rem; }
+  .teacher-main { gap: 0.65rem; }
+  .teacher-avatar { width: 2.85rem; height: 2.85rem; }
+  .register-btn { flex: none; }
+
+  /* Teacher profile hero centers on small screens */
+  .teacher-hero { justify-content: center; text-align: center; }
+  .teacher-hero-badge { align-self: center; }
+  .teacher-hero-meta { justify-content: center; }
+  .teacher-hero-actions .btn { width: 100%; }
 }
 
 /* Blog */
