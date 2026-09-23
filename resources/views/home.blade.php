@@ -58,19 +58,32 @@
               $freeCount = count($slots) - count($booked[$teacher['slug']] ?? []);
             @endphp
             <li class="teacher">
-              <div class="teacher-info">
-                <span class="teacher-name">{{ $teacher['name'] }}</span>
-                <span class="teacher-day">{{ $teacher['day_label'] }} · {{ Schedule::toPersianDigits((string) $slotStart) }} تا {{ Schedule::toPersianDigits((string) $slotEnd) }}</span>
-                <span class="teacher-free {{ $freeCount ? '' : 'is-full' }}">
-                  @if($freeCount)
-                    {{ Schedule::toPersianDigits((string) $freeCount) }} ساعت خالی
+              <div class="teacher-main">
+                <a class="teacher-avatar" href="{{ route('teachers.show', $teacher['slug']) }}" aria-label="صفحهٔ {{ $teacher['name'] }}">
+                  @if(!empty($teacher['photo_url']))
+                    <img src="{{ $teacher['photo_url'] }}" alt="عکس {{ $teacher['name'] }}" loading="lazy" width="52" height="52" />
                   @else
-                    ظرفیت تکمیل است
+                    <span class="teacher-avatar-fallback" aria-hidden="true">{{ mb_substr($teacher['name'], 0, 1) }}</span>
                   @endif
-                </span>
+                </a>
+                <div class="teacher-info">
+                  <a class="teacher-name" href="{{ route('teachers.show', $teacher['slug']) }}">{{ $teacher['name'] }}</a>
+                  <span class="teacher-day">{{ $teacher['day_label'] }} · {{ Schedule::toPersianDigits((string) $slotStart) }} تا {{ Schedule::toPersianDigits((string) $slotEnd) }}</span>
+                  <a class="teacher-profile-link" href="{{ route('teachers.show', $teacher['slug']) }}">مشاهدهٔ پروفایل و بیوگرافی ←</a>
+                  <span class="teacher-free {{ $freeCount ? '' : 'is-full' }}">
+                    @if($freeCount)
+                      {{ Schedule::toPersianDigits((string) $freeCount) }} ساعت خالی
+                    @else
+                      ظرفیت تکمیل است
+                    @endif
+                  </span>
+                </div>
               </div>
               <button class="btn btn-outline btn-sm register-btn" type="button"
-                      data-teacher="{{ $teacher['slug'] }}" @disabled($freeCount === 0)>
+                      data-teacher="{{ $teacher['slug'] }}"
+                      data-teacher-name="{{ $teacher['name'] }}"
+                      data-teacher-photo="{{ $teacher['photo_url'] ?? '' }}"
+                      @disabled($freeCount === 0)>
                 {{ $freeCount ? 'ثبت‌نام' : 'تکمیل' }}
               </button>
             </li>
@@ -191,6 +204,14 @@
                   </optgroup>
                   @endforeach
                 </select>
+              </div>
+
+              <div class="field field-full teacher-preview" data-teacher-preview hidden>
+                <span class="teacher-preview-avatar" data-teacher-preview-avatar></span>
+                <span class="teacher-preview-info">
+                  <span class="teacher-preview-name" data-teacher-preview-name></span>
+                  <span class="teacher-preview-sub">استاد انتخابی شما</span>
+                </span>
               </div>
 
               <div class="field field-full slot-field">

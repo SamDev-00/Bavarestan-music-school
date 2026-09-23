@@ -73,6 +73,7 @@ class Schedule
                 'name' => $teacher->name,
                 'day' => $teacher->day,
                 'day_label' => $teacher->day_label,
+                'photo_url' => $teacher->photo_url,
             ];
         }
 

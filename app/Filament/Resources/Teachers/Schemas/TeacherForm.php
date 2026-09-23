@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Teachers\Schemas;
 
 use App\Models\Teacher;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -19,6 +21,40 @@ class TeacherForm
                     ->required()
                     ->maxLength(120)
                     ->placeholder('مثلاً مریم صارمی')
+                    ->columnSpanFull(),
+
+                FileUpload::make('photo')
+                    ->label('عکس استاد (اختیاری)')
+                    ->image()
+                    ->imageEditor()
+                    ->avatar()
+                    ->disk('public')
+                    ->directory('teachers')
+                    ->visibility('public')
+                    ->imageResizeMode('cover')
+                    ->imageCropAspectRatio('1:1')
+                    ->helperText('عکس هنگام ثبت‌نام کنار نام استاد نمایش داده می‌شود. ترجیحاً مربعی.')
+                    ->columnSpanFull(),
+
+                TextInput::make('headline')
+                    ->label('معرفی کوتاه (اختیاری)')
+                    ->maxLength(160)
+                    ->placeholder('مثلاً مدرس ویلن با ۱۰ سال سابقهٔ تدریس و اجرا')
+                    ->helperText('یک جملهٔ کوتاه که زیر نام استاد در صفحهٔ اختصاصی‌اش نمایش داده می‌شود.')
+                    ->columnSpanFull(),
+
+                RichEditor::make('bio')
+                    ->label('بیوگرافی و توضیحات صفحهٔ استاد')
+                    ->helperText('هرچه اینجا بنویسید در صفحهٔ اختصاصی استاد نمایش داده می‌شود؛ سوابق، افتخارات، شیوهٔ تدریس و هر چیز دیگر.')
+                    ->columnSpanFull(),
+
+                FileUpload::make('footer_image')
+                    ->label('عکس انتهای صفحهٔ بیوگرافی (اختیاری)')
+                    ->image()
+                    ->disk('public')
+                    ->directory('teachers')
+                    ->visibility('public')
+                    ->helperText('این عکس با هر ابعاد و اندازه‌ای که آپلود کنید، بدون برش در انتهای صفحهٔ بیوگرافی نمایش داده می‌شود.')
                     ->columnSpanFull(),
 
                 TextInput::make('instrument')

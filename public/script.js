@@ -32,6 +32,44 @@
   const slotGroups = document.querySelectorAll("[data-slot-group]");
   const slotHint = document.querySelector("[data-slot-hint]");
 
+  // Map each instructor's slug to their name/photo so we can preview them.
+  const teacherMeta = {};
+  registerButtons.forEach((btn) => {
+    teacherMeta[btn.dataset.teacher] = {
+      name: btn.dataset.teacherName || "",
+      photo: btn.dataset.teacherPhoto || "",
+    };
+  });
+
+  const preview = document.querySelector("[data-teacher-preview]");
+  const previewAvatar = document.querySelector("[data-teacher-preview-avatar]");
+  const previewName = document.querySelector("[data-teacher-preview-name]");
+
+  const showPreviewFor = (value) => {
+    if (!preview) return;
+    const meta = teacherMeta[value];
+    if (!value || !meta) {
+      preview.hidden = true;
+      return;
+    }
+    if (previewName) previewName.textContent = meta.name;
+    if (previewAvatar) {
+      if (meta.photo) {
+        previewAvatar.innerHTML = "";
+        previewAvatar.classList.remove("is-fallback");
+        const img = document.createElement("img");
+        img.src = meta.photo;
+        img.alt = "عکس " + meta.name;
+        img.loading = "lazy";
+        previewAvatar.appendChild(img);
+      } else {
+        previewAvatar.classList.add("is-fallback");
+        previewAvatar.textContent = meta.name ? meta.name.charAt(0) : "?";
+      }
+    }
+    preview.hidden = false;
+  };
+
   const highlightSelected = (value) => {
     registerButtons.forEach((btn) => {
       btn.classList.toggle("is-selected", btn.dataset.teacher === value);
@@ -63,6 +101,7 @@
     if (teacherSelect) teacherSelect.value = value;
     highlightSelected(value);
     showSlotsFor(value);
+    showPreviewFor(value);
   };
 
   registerButtons.forEach((btn) => {
@@ -76,7 +115,10 @@
   if (teacherSelect) {
     teacherSelect.addEventListener("change", () => selectTeacher(teacherSelect.value));
     // Restore the picker when a validation error bounced the form back.
-    if (teacherSelect.value) showSlotsFor(teacherSelect.value);
+    if (teacherSelect.value) {
+      showSlotsFor(teacherSelect.value);
+      showPreviewFor(teacherSelect.value);
+    }
   }
 
   if (form && status) {

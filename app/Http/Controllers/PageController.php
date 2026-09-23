@@ -7,6 +7,7 @@ use App\Models\Photo;
 use App\Models\Post;
 use App\Models\SaleBook;
 use App\Models\SiteStat;
+use App\Models\Teacher;
 use App\Models\Track;
 use App\Support\Schedule;
 use Illuminate\Support\Facades\Storage;
@@ -39,6 +40,20 @@ class PageController extends Controller
     public function about()
     {
         return view('about');
+    }
+
+    public function teacherShow(Teacher $teacher)
+    {
+        // استاد غیرفعال فقط برای کاربر واردشده به پنل قابل مشاهده است.
+        abort_unless($teacher->is_active || auth()->check(), 404);
+
+        return view('teachers.show', [
+            'teacher' => $teacher,
+            'freeCount' => count(Schedule::slots())
+                - count(Schedule::bookedSlots()[$teacher->slug] ?? []),
+            'slotStart' => config('school.slots.start'),
+            'slotEnd' => config('school.slots.end'),
+        ]);
     }
 
     public function blogIndex()

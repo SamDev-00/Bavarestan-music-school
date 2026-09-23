@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500;600;700&family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="{{ asset('images/logo-mark.png') }}" />
   <link rel="apple-touch-icon" href="{{ asset('images/logo-mark.png') }}" />
-  <link rel="stylesheet" href="{{ asset('style.css') }}?v=19" />
+  <link rel="stylesheet" href="{{ asset('style.css') }}?v=22" />
 </head>
 <body>
   <a class="skip-link" href="#main">رفتن به محتوا</a>
@@ -89,7 +89,7 @@
     <a class="btn btn-primary" href="{{ url('/') }}#register">ثبت‌نام</a>
   </div>
 
-  <script src="{{ asset('script.js') }}?v=2"></script>
+  <script src="{{ asset('script.js') }}?v=3"></script>
   @stack('scripts')
 </body>
 </html>
