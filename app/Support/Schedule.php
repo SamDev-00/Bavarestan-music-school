@@ -3,6 +3,8 @@
 namespace App\Support;
 
 use App\Models\Registration;
+use App\Models\Teacher;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * زمان‌بندی کلاس‌ها — تنها منبع اطلاعات اساتید و بازه‌های ۳۰ دقیقه‌ای.
@@ -37,12 +39,44 @@ class Schedule
 
     /**
      * گروه‌های آموزشی به همان ترتیبی که در صفحهٔ اصلی نمایش داده می‌شوند.
+     * اساتید از دیتابیس خوانده و بر اساس «ساز/گروه» دسته‌بندی می‌شوند؛ اگر جدول
+     * هنوز ساخته نشده باشد، از config/school.php استفاده می‌شود.
      *
      * @return list<array<string, mixed>>
      */
     public static function groups(): array
     {
-        return config('school.groups', []);
+        if (! Schema::hasTable('teachers')) {
+            return config('school.groups', []);
+        }
+
+        $teachers = Teacher::active()
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get();
+
+        $groups = [];
+
+        foreach ($teachers as $teacher) {
+            $key = $teacher->instrument;
+
+            if (! isset($groups[$key])) {
+                $groups[$key] = [
+                    'instrument' => $teacher->instrument,
+                    'icon' => $teacher->icon,
+                    'teachers' => [],
+                ];
+            }
+
+            $groups[$key]['teachers'][] = [
+                'slug' => $teacher->slug,
+                'name' => $teacher->name,
+                'day' => $teacher->day,
+                'day_label' => $teacher->day_label,
+            ];
+        }
+
+        return array_values($groups);
     }
 
     /**
